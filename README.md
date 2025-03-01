@@ -1,6 +1,20 @@
 # and_thanks_for_all_the_fish_c
 Actual game-like version of the game.
 
+To-do list:
+ - JIRA
+ - minimum product (Makefile, main.c, main.h, minilibx) (v0.0.1)
+ 
+ - v.0.1
+   - displaying images
+   - parsing maps
+   - basic movement
+
+ - v.0.2
+   - displaying animations
+   - generating maps
+   - advanced movement
+
 
 And thanks for all the fish (C version)
 Goals
@@ -27,3 +41,4 @@ Needed:
  - different consumables
  - stamina (boost)
  - free movement
+ - JIRA?
