@@ -5,12 +5,12 @@ To-do list:
  - JIRA
  - minimum product (Makefile, main.c, main.h, minilibx) (v0.0.1)
  
- - v.0.1
+ - v0.1
    - displaying images
    - parsing maps
    - basic movement
 
- - v.0.2
+ - v0.2
    - displaying animations
    - generating maps
    - advanced movement
@@ -42,3 +42,6 @@ Needed:
  - stamina (boost)
  - free movement
  - JIRA?
+ - Doxygen comments?
+ - clang-format
+ - clang-tidy?
