@@ -2,7 +2,7 @@
 Actual game-like version of the game.
 
 To-do list:
- - JIRA
+ - JIRA in progress
  - minimum product (Makefile, main.c, main.h, minilibx) (v0.0.1)
  
  - v0.1
