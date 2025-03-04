@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/03 17:31:13 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/04 18:42:34 by okraus           ###   ########.fr       */
+/*   Created: 2025/03/04 18:42:03 by okraus            #+#    #+#             */
+/*   Updated: 2025/03/04 18:42:23 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include <stdlib.h>
+# include <unistd.h>
 
-void	put_error(char const *const str);
-
-#endif /* MAIN_H */
+#endif /* UTILS_H */
