@@ -53,3 +53,11 @@ dkms.conf
 
 # executable
 so_long
+and_thanks_for_all_the_fish
+
+# libraries
+minilibx
+sdl2
+
+# objects
+obj
