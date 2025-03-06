@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 17:31:18 by okraus            #+#    #+#              #
-#    Updated: 2025/03/05 18:51:37 by okraus           ###   ########.fr        #
+#    Updated: 2025/03/06 18:33:58 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ SDL_DIR     := sdl2
 INCLUDE_DIR := include
 
 # Source and object files
-SRCS        := main.c utils/utils.c
+SRCS        :=	main.c \
+				graphics/game.c \
+				utils/utils.c
 OBJS        := $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 DEPS        := $(OBJS:.o=.d)
 
@@ -40,7 +42,7 @@ SDL_LIB     := $(SDL_DIR)/build/.libs/libSDL2.a
 SDL_FLAGS   := -I$(SDL_DIR)/include -L$(SDL_DIR)/build/.libs -lSDL2 -lm
 
 # Default rule to build the program
-all: CFLAGS += -I$(MLX_DIR)
+all: CFLAGS += -DLIB=0 -I$(MLX_DIR)
 
 all: $(NAME)
 
@@ -71,7 +73,7 @@ $(SDL_LIB):
 
 # Rule to build with SDL2
 GAME_NAME   := and_thanks_for_all_the_fish
-game: CFLAGS += -D USE_SDL -I$(SDL_DIR)/$(INCLUDE_DIR)
+game: CFLAGS += -DLIB=1 -I$(SDL_DIR)/$(INCLUDE_DIR)
 
 game: $(SDL_LIB) $(OBJS)
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $^ $(SDL_FLAGS) -o $(GAME_NAME)
@@ -79,13 +81,17 @@ game: $(SDL_LIB) $(OBJS)
 # Rule to compile each source file into an object file
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(SRC_DIR)/%.h
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -MMD -MP -c $< -o $@
+
+# Clean up object files
+miniclean:
+	$(RM) $(OBJ_DIR)
 
 # Clean up object files
 clean:
 	$(RM) $(OBJ_DIR)
-	@make -C $(MLX_DIR) clean || true
-	@make -C $(SDL_DIR) clean || true
+	make -C $(MLX_DIR) clean || true
+	make -C $(SDL_DIR) clean || true
 
 # Clean up both object files and the executable
 fclean: clean
@@ -96,4 +102,4 @@ fclean: clean
 re: fclean all
 
 # Mark these targets as not actual files
-.PHONY: all clean fclean re game
+.PHONY: all miniclean clean fclean re game

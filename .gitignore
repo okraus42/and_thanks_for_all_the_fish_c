@@ -61,3 +61,6 @@ sdl2
 
 # objects
 obj
+
+#vscode
+.vscode
