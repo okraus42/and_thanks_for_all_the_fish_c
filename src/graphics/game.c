@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:03:00 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/09 17:32:54 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/09 17:44:00 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,29 +112,10 @@ void clear_screen(t_game *g)
 }
 
 // Close window function
-int close_window_esc(void *param)
+
+int close_window(void *param)
 {
     t_game *g = (t_game *)param;
-
-    if (g->mlx && g->win) // Ensure pointers are valid
-    {
-        mlx_destroy_window(g->mlx, g->win);
-        g->win = NULL;  // Mark the window as destroyed
-    }
-
-    mlx_loop_end(g->mlx); // Explicitly end the mlx_loop
-    return 0; // Return 0 to indicate the handler has finished
-}
-
-int close_window_x(void *param)
-{
-    t_game *g = (t_game *)param;
-
-    // if (g->mlx && g->win) // Ensure pointers are valid
-    // {
-    //     mlx_destroy_window(g->mlx, g->win);
-    //     g->win = NULL;  // Mark the window as destroyed
-    // }
     mlx_loop_end(g->mlx); // Explicitly end the mlx_loop
     return 0; // Return 0 to indicate the handler has finished
 }
@@ -146,7 +127,7 @@ int key_press(int keycode, void *param)
 
     if (keycode == ESC_KEY)
     {
-        close_window_esc(g); // Close the window
+        close_window(g); // Close the window
         return (0);
     }
 
@@ -226,7 +207,7 @@ int game(t_game *g)
 
     mlx_hook(g->win, 2, 1L << 0, key_press, g);   // Handle key press
     mlx_hook(g->win, 3, 1L << 1, key_release, g); // Handle key release
-    mlx_hook(g->win, 17, 0, close_window_x, g);     // Handle window close event
+    mlx_hook(g->win, 17, 0, close_window, g);     // Handle window close event
     mlx_loop_hook(g->mlx, update_game, g);        // Continuous movement check
 
     // Enter the main event loop

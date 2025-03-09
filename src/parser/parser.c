@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 18:31:58 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/09 17:13:42 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/09 17:45:09 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	parser(char *file, t_game *g)
         put_error("Last map line not the correct length\n");
         return -1;
     }
+    if (w != 0)
+        g->map.height++;
     //more parsing
     return 0;
 }
