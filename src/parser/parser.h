@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game.h                                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 17:16:34 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/09 16:19:48 by okraus           ###   ########.fr       */
+/*   Created: 2025/03/09 15:53:24 by okraus            #+#    #+#             */
+/*   Updated: 2025/03/09 16:27:52 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PARSER_H
+# define PARSER_H
 
-#ifndef GAME_H
-# define GAME_H
-
-#ifdef LIB
-    #if LIB == 1
-        #include "SDL.h"
-    #else
-        #include "mlx.h"
-    #endif
-#endif
+# include <stdlib.h>
 
 // utils
 void	put_error(char const *const str);
 void	put_str(char const *const str);
 
-#endif /* GAME_H */
+#endif /* PARSER_H */
