@@ -1,0 +1,54 @@
+# Suppress leaks from X11
+{
+   X11_LEAK
+   Memcheck:Leak
+   fun:malloc
+   fun:free
+   obj:/usr/lib/x86_64-linux-gnu/libX11.so.*
+}
+
+# Suppress leaks from SDL X11-specific functions
+{
+   SDL_X11_X11_KEYBOARD
+   Memcheck:Leak
+   fun:X11_InitKeyboard
+   fun:X11_VideoInit
+   fun:SDL_VideoInit_REAL
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2.so.*
+}
+
+# Suppress malloc and memory allocation leaks inside shared libraries (General)
+{
+   GLIBC_X11_LEAK
+   Memcheck:Leak
+   fun:malloc
+   obj:/usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+}
+
+# Suppress leaks from the dynamic loading process (dlopen)
+{
+   DLOPEN_LEAK
+   Memcheck:Leak
+   fun:dlopen
+   obj:/lib/x86_64-linux-gnu/libdl.so.*
+}
+
+# Suppress leaks from libc functions like strdup used by SDL
+{
+   GLIBC_STRDUP_LEAK
+   Memcheck:Leak
+   fun:strdup
+   obj:/usr/lib/x86_64-linux-gnu/libc.so.*
+}
+
+# Suppress specific leaks from the X11 initialization code in SDL (addressed by valgrind trace)
+{
+   SDL_X11_INIT_KEYBOARD_1
+   Memcheck:Leak
+   fun:X11_InitKeyboard
+   fun:X11_VideoInit
+   fun:SDL_VideoInit_REAL
+   obj:/usr/lib/x86_64-linux-gnu/libSDL2.so.*
+}
+
+# Suppress malloc-relate

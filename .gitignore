@@ -50,3 +50,17 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# executable
+so_long
+and_thanks_for_all_the_fish
+
+# libraries
+minilibx
+sdl2
+
+# objects
+obj
+
+#vscode
+.vscode
