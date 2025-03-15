@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:11:13 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/09 17:15:31 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:00:46 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ enum	e_tiles
 // Structure to hold game map
 typedef struct s_map
 {
-    uint32_t	m[MAX_MAP_SIZE];
-    uint32_t	width;
-    uint32_t	height;
+	uint32_t	m[MAX_MAP_SIZE * 4];
+	uint8_t		f[MAX_MAP_SIZE];
+	uint32_t	width;
+	uint32_t	height;
 	//player
 	//collectibles
 	//enemies
