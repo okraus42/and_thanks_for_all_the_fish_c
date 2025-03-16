@@ -1,17 +1,29 @@
-BasedOnStyle: Google
+Language: Cpp
 IndentWidth: 4
 TabWidth: 4
-UseTab: ForIndentation
+UseTab: Always
 ColumnLimit: 80
-BreakBeforeBraces: Linux
+BreakBeforeBraces: Allman
+BraceWrapping:
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
 PointerAlignment: Left
 AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
-AlignTrailingComments: false
+AlignConsecutiveDeclarations: true  # Aligns variable names
+AlignConsecutiveMacros: true
+AlignTrailingComments: true         # Aligns comments
 SpacesBeforeTrailingComments: 1
 IndentCaseLabels: true
 SpaceBeforeParens: ControlStatements
@@ -19,4 +31,7 @@ SpacesInParentheses: false
 SpacesInSquareBrackets: false
 SpaceBeforeAssignmentOperators: true
 ReflowComments: false
+
 IndentPPDirectives: AfterHash
+PPIndentWidth: 1
+SpaceAfterCppDirectiveHash: true

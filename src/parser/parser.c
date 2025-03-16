@@ -6,20 +6,23 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:07:47 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/15 17:07:54 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/16 13:45:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fcntl.h>   // For open()
-#include <unistd.h>  // For read(), close()
-#include <stdlib.h>  // For exit()
-#include "defines.h"
 #include "parser.h"
 
-int	parser(char *file, t_game *g)
+#include <fcntl.h>	// For open()
+#include <stdlib.h> // For exit()
+#include <unistd.h> // For read(), close()
+#include <stdio.h> // For debugging
+
+#include "defines.h"
+
+int parser(char* file, t_game* g)
 {
-	char f[MAX_MAP_SIZE];  // Temporary buffer to read the file
-	int fd;
+	char	f[MAX_FILE_SIZE]; // Temporary buffer to read the file
+	int		fd;
 	ssize_t bytes;
 
 	// Open the file in read-only mode
@@ -38,7 +41,7 @@ int	parser(char *file, t_game *g)
 		close(fd);
 		return -1;
 	}
-	if (bytes == MAX_MAP_SIZE)
+	if (bytes == MAX_FILE_SIZE)
 	{
 		put_error("Map file too big\n");
 		close(fd);
@@ -49,28 +52,35 @@ int	parser(char *file, t_game *g)
 	//fake split ap to 1024 lines
 	// Process the data (example: convert bytes to int values)
 	uint32_t w;
-	int i;
-	int j;
+	int		 i;
+	int		 j;
 
 	j = 0;
 	w = 0U;
 	i = 0U;
 	//read max width
 	//fill to max width
+	write(1, "0a\n", 3);
 	while (i < bytes)
 	{
+		// g->map.height = 0;
+		// write(1, "0l\n", 3);
+		// char c = '0' + g->map.height;
+		// write(1, &c, 1);
+		// write(1, "0l\n", 3);
 		if (f[i] == '0')
-			g->map.m[j] = M_FLOOR;
+			g->map.f[g->map.height][j] = '0';
 		else if (f[i] == '1')
-			g->map.m[j] = M_WALL;
+			g->map.f[g->map.height][j] = '1';
 		else if (f[i] == 'P')
-			g->map.m[j] = M_ENTRANCE;
+			g->map.f[g->map.height][j] = 'P';
 		else if (f[i] == 'C')
-			g->map.m[j] = M_COLLECTIBLE;
+			g->map.f[g->map.height][j] = 'C';
 		else if (f[i] == 'E')
-			g->map.m[j] = M_EXIT;
+			g->map.f[g->map.height][j] = 'E';
 		else if (f[i] == '\n')
 		{
+			j = 0;
 			g->map.height++;
 			if (g->map.width != w)
 			{
@@ -84,11 +94,13 @@ int	parser(char *file, t_game *g)
 			}
 			w = 0U;
 			i++;
-			continue ;
+			continue;
 		}
 		w++;
 		i++;
 		j++;
+		// printf("%d\n", g->map.height);
+		// write(1, "0l\n", 3);
 	}
 	if (g->map.width != w && w != 0)
 	{
@@ -97,11 +109,68 @@ int	parser(char *file, t_game *g)
 	}
 	if (w != 0)
 		g->map.height++;
+	//check map width and map height
+	
+	//stuff here
+	// make sure the map is valid
+
 	//more parsing
+	uint32_t y;
+	uint32_t x;
+	write(1, "0b\n", 3);
+	y = 0;
+	while (y < g->map.height)
+	{
+		x = 0;
+		while (x < g->map.width)
+		{
+			if (g->map.f[y][x] == '0')
+			{
+				g->map.m[2 * y][2 * x] = M_FLOOR;
+				g->map.m[2 * y][2 * x + 1] = M_FLOOR;
+				g->map.m[2 * y + 1][2 * x] = M_FLOOR;
+				g->map.m[2 * y + 1][2 * x + 1] = M_FLOOR;
+			}
+				else if (g->map.f[y][x] == '1')
+			{
+				g->map.m[2 * y][2 * x] = M_WALL;
+				g->map.m[2 * y][2 * x + 1] = M_WALL;
+				g->map.m[2 * y + 1][2 * x] = M_WALL;
+				g->map.m[2 * y + 1][2 * x + 1] = M_WALL;
+			}
+				else if (g->map.f[y][x] == 'P')
+			{
+				g->map.m[2 * y][2 * x] = M_ENTRANCE;
+				g->map.m[2 * y][2 * x + 1] = M_ENTRANCE;
+				g->map.m[2 * y + 1][2 * x] = M_ENTRANCE;
+				g->map.m[2 * y + 1][2 * x + 1] = M_ENTRANCE;
+			}
+				else if (g->map.f[y][x] == 'C')
+			{
+				g->map.m[2 * y][2 * x] = M_COLLECTIBLE;
+				g->map.m[2 * y][2 * x + 1] = M_COLLECTIBLE;
+				g->map.m[2 * y + 1][2 * x] = M_COLLECTIBLE;
+				g->map.m[2 * y + 1][2 * x + 1] = M_COLLECTIBLE;
+			}
+				else if (g->map.f[y][x] == 'E')
+			{
+				g->map.m[2 * y][2 * x] = M_EXIT;
+				g->map.m[2 * y][2 * x + 1] = M_EXIT;
+				g->map.m[2 * y + 1][2 * x] = M_EXIT;
+				g->map.m[2 * y + 1][2 * x + 1] = M_EXIT;
+			}
+				x++;
+		}
+		y++;
+	}
+	g->map.height *= 2;
+	g->map.width *= 2;
+	write(1, "0c\n", 3);
+	//update map to have tiles
 	return 0;
 }
 
-void	print_map(t_game *g)
+void print_map(t_game* g)
 {
 	uint32_t y;
 	uint32_t x;
@@ -112,15 +181,15 @@ void	print_map(t_game *g)
 		x = 0;
 		while (x < g->map.width)
 		{
-			if (g->map.m[y * g->map.width + x] == M_FLOOR)
+			if (g->map.m[y][x] == M_FLOOR)
 				put_str(ANSI_BG_BLUE "  " ANSI_RESET);
-			else if (g->map.m[y * g->map.width + x] == M_WALL)
+			else if (g->map.m[y][x] == M_WALL)
 				put_str(ANSI_BG_GREEN_DARK "  " ANSI_RESET);
-			else if (g->map.m[y * g->map.width + x] == M_ENTRANCE)
+			else if (g->map.m[y][x] == M_ENTRANCE)
 				put_str(ANSI_BG_GRAY "  " ANSI_RESET);
-			else if (g->map.m[y * g->map.width + x] == M_COLLECTIBLE)
+			else if (g->map.m[y][x] == M_COLLECTIBLE)
 				put_str(ANSI_BG_GOLD "  " ANSI_RESET);
-			else if (g->map.m[y * g->map.width + x] == M_EXIT)
+			else if (g->map.m[y][x] == M_EXIT)
 				put_str(ANSI_BG_BLUE_DARK "  " ANSI_RESET);
 			x++;
 		}

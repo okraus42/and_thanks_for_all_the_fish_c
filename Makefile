@@ -6,7 +6,7 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 17:31:18 by okraus            #+#    #+#              #
-#    Updated: 2025/03/09 17:27:12 by okraus           ###   ########.fr        #
+#    Updated: 2025/03/16 13:35:20 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,8 @@ fclean: clean
 
 # Clean and rebuild the program
 re: fclean all
+
+-include $(DEPS)
 
 # Mark these targets as not actual files
 .PHONY: all miniclean clean fclean re game
