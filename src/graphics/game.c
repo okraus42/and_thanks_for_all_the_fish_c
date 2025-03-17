@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:03:00 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/16 14:47:56 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:03:59 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int key_release(int keycode, void* param)
 	return (0);
 }
 
-#define IMG_PATH "assets/img/test2.xpm"
+# define IMG_PATH "assets/img/test2.xpm"
 
 // Update function for continuous movement
 int update_game(void* param)
@@ -200,16 +200,17 @@ int game(t_game* g)
 		return 1;
 	}
 
-	// Create an array to store mlx and win pointers to pass in key press handler
+	// Create an array to store mlx and win pointers to pass in key press handler....
 	g->x = WIN_WIDTH / 2 - SQUARE_SIZE / 2;
 	g->y = WIN_HEIGHT / 2 - SQUARE_SIZE / 2;
 
-	g->img.img = mlx_xpm_file_to_image(g->mlx, IMG_PATH, &g->img.width, &g->img.height);
-    if (!g->img.img)
-    {
-        put_error("Failed to load sprite sheet\n");
-        return (1);
-    }
+	g->img.img =
+		mlx_xpm_file_to_image(g->mlx, IMG_PATH, &g->img.width, &g->img.height);
+	if (!g->img.img)
+	{
+		put_error("Failed to load sprite sheet\n");
+		return (1);
+	}
 
 	draw_square(g);
 
@@ -219,7 +220,7 @@ int game(t_game* g)
 	mlx_loop_hook(g->mlx, update_game, g);		  // Continuous movement check
 
 	// Enter the main event loop
-	mlx_loop(g->mlx);	  // This will run until mlx_loop_end() is called
+	mlx_loop(g->mlx);		  // This will run until mlx_loop_end() is called
 	if (g->mlx && g->img.img) // Ensure pointers are valid
 	{
 		mlx_destroy_image(g->mlx, g->img.img);

@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:11:13 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/16 14:39:15 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:38:59 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_game
 	bool	keys[MAX_KEY_SIZE]; // Large enough to store all keycodes
 	t_map	map;
 	t_img	img;
+	t_img	bg[16];
 } t_game;
 
 #endif
