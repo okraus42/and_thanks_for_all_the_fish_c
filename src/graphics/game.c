@@ -6,12 +6,13 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:03:00 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/17 18:03:59 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/22 15:44:49 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "defines.h"
+#include <stdio.h>	//for debug
 #include <stdlib.h> //for free
 
 #if LIB == 1
@@ -75,11 +76,111 @@ int game(t_game* g)
 #  define UP_KEY	126
 #  define DOWN_KEY	125
 # else
-#  define ESC_KEY	65307
-#  define LEFT_KEY	65361
-#  define RIGHT_KEY 65363
-#  define UP_KEY	65362
-#  define DOWN_KEY	65364
+#  define KEY_F1		   65470
+#  define KEY_F2		   65471
+#  define KEY_F3		   65472
+#  define KEY_F4		   65473
+#  define KEY_F5		   65474
+#  define KEY_F6		   65475
+#  define KEY_F7		   65476
+#  define KEY_F8		   65477
+#  define KEY_F9		   65478
+#  define KEY_F10		   65479
+#  define KEY_F11		   65480
+#  define KEY_F12		   65481
+#  define KEY_A			   97
+#  define KEY_B			   98
+#  define KEY_C			   99
+#  define KEY_D			   100
+#  define KEY_E			   101
+#  define KEY_F			   102
+#  define KEY_G			   103
+#  define KEY_H			   104
+#  define KEY_I			   105
+#  define KEY_J			   106
+#  define KEY_K			   107
+#  define KEY_L			   108
+#  define KEY_M			   109
+#  define KEY_N			   110
+#  define KEY_O			   111
+#  define KEY_P			   112
+#  define KEY_Q			   113
+#  define KEY_R			   114
+#  define KEY_S			   115
+#  define KEY_T			   116
+#  define KEY_U			   117
+#  define KEY_V			   118
+#  define KEY_W			   119
+#  define KEY_X			   120
+#  define KEY_Y			   121
+#  define KEY_Z			   122
+#  define KEY_0			   48
+#  define KEY_1			   49
+#  define KEY_2			   50
+#  define KEY_3			   51
+#  define KEY_4			   52
+#  define KEY_5			   53
+#  define KEY_6			   54
+#  define KEY_7			   55
+#  define KEY_8			   56
+#  define KEY_9			   57
+#  define KEY_UP		   65362
+#  define KEY_DOWN		   65364
+#  define KEY_LEFT		   65361
+#  define KEY_RIGHT		   65363
+#  define KEY_ESC		   65307 // Escape
+#  define KEY_TAB		   65289 // Tab
+#  define KEY_CAPSLOCK	   65509 // Caps Lock
+#  define KEY_SHIFT_L	   65505 // Left Shift
+#  define KEY_SHIFT_R	   65506 // Right Shift
+#  define KEY_CTRL_L	   65507 // Left Ctrl
+#  define KEY_CTRL_R	   65508 // Right Ctrl
+#  define KEY_ALT_L		   65513 // Left Alt (Option)
+#  define KEY_ALT_R		   65514 // Right Alt (Option)
+#  define KEY_SUPER_L	   65515 // Left Super (Windows key / Command key)
+#  define KEY_SUPER_R	   65516 // Right Super (Windows key / Command key)
+#  define KEY_RIGHT_CLICK  65383 // Right Super (Windows key / Command key)
+#  define KEY_SPACE		   32	 // Spacebar
+#  define KEY_BACKSPACE	   65288 // Backspace
+#  define KEY_ENTER		   65293 // Enter/Return
+#  define KEY_DELETE	   65535 // Delete
+#  define KEY_INSERT	   65379 // Insert
+#  define KEY_HOME		   65360 // Home
+#  define KEY_END		   65367 // End
+#  define KEY_PAGEUP	   65365 // Page Up
+#  define KEY_PAGEDOWN	   65366 // Page Down
+#  define KEY_PRINTSCREEN  65377 // Print Screen
+#  define KEY_SCROLLLOCK   65300 // Scroll Lock
+#  define KEY_PAUSE		   65299 // Pause/Break
+#  define KEY_NUM_0		   65438
+#  define KEY_NUM_1		   65436
+#  define KEY_NUM_2		   65433
+#  define KEY_NUM_3		   65435
+#  define KEY_NUM_4		   65430
+#  define KEY_NUM_5		   65437
+#  define KEY_NUM_6		   65432
+#  define KEY_NUM_7		   65429
+#  define KEY_NUM_8		   65431
+#  define KEY_NUM_9		   65434
+#  define KEY_NUM_PLUS	   65451
+#  define KEY_NUM_MINUS	   65453
+#  define KEY_NUM_MULTIPLY 65450
+#  define KEY_NUM_DIVIDE   65455
+#  define KEY_NUM_ENTER	   65421
+#  define KEY_NUM_DOT	   65439
+#  define KEY_TILDE		   96 // `
+#  define KEY_MINUS		   45 // -
+#  define KEY_EQUAL		   61 // =
+#  define KEY_LBRACKET	   91 // [
+#  define KEY_RBRACKET	   93 // ]
+#  define KEY_BACKSLASH	   92 // '\'
+#  define KEY_SEMICOLON	   59 // ;
+#  define KEY_APOSTROPHE   39 // '
+#  define KEY_COMMA		   44 // ,
+#  define KEY_DOT		   46 // .
+#  define KEY_SLASH		   47 // /
+#  define KEY_BACKSLASH2   60
+
 # endif
 
 # define WIN_WIDTH	 800
@@ -122,10 +223,14 @@ int key_press(int keycode, void* param)
 {
 	t_game* g = (t_game*)param;
 
-	if (keycode == ESC_KEY)
+	if (keycode == KEY_ESC)
 	{
 		close_window(g); // Close the window
 		return (0);
+	}
+	else
+	{
+		printf("key %i\n", keycode);
 	}
 
 	if (keycode >= 0 && keycode < 65536)
@@ -152,22 +257,22 @@ int update_game(void* param)
 {
 	t_game* g = (t_game*)param;
 	bool	moved = false;
-	if (g->keys[LEFT_KEY] && g->x > 0)
+	if (g->keys[KEY_LEFT] && g->x > 0)
 	{
 		g->x -= MOVE_SPEED;
 		moved = true;
 	}
-	if (g->keys[RIGHT_KEY] && g->x < WIN_WIDTH - SQUARE_SIZE)
+	if (g->keys[KEY_RIGHT] && g->x < WIN_WIDTH - SQUARE_SIZE)
 	{
 		g->x += MOVE_SPEED;
 		moved = true;
 	}
-	if (g->keys[UP_KEY] && g->y > 0)
+	if (g->keys[KEY_UP] && g->y > 0)
 	{
 		g->y -= MOVE_SPEED;
 		moved = true;
 	}
-	if (g->keys[DOWN_KEY] && g->y < WIN_HEIGHT - SQUARE_SIZE)
+	if (g->keys[KEY_DOWN] && g->y < WIN_HEIGHT - SQUARE_SIZE)
 	{
 		g->y += MOVE_SPEED;
 		moved = true;

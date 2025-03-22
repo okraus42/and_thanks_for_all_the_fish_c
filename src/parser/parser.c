@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 17:07:47 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/16 13:45:49 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/22 11:08:12 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,10 @@ int parser(char* file, t_game* g)
 		if (f[i] == '0')
 			g->map.f[g->map.height][j] = '0';
 		else if (f[i] == '1')
+		{
+			// printf("g->map.height: %i | j: %i, %p %p\n", g->map.height, j, g, &(g->map));
 			g->map.f[g->map.height][j] = '1';
+		}
 		else if (f[i] == 'P')
 			g->map.f[g->map.height][j] = 'P';
 		else if (f[i] == 'C')

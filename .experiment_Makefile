@@ -6,16 +6,16 @@
 #    By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/03 17:31:18 by okraus            #+#    #+#              #
-#    Updated: 2025/03/22 10:42:09 by okraus           ###   ########.fr        #
+#    Updated: 2025/03/16 13:35:20 by okraus           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Program name (output executable)
 NAME        := so_long
 
-# Compiler and flags  //old gdwarf for valgrind
+# Compiler and flags
 CC          := cc
-CFLAGS      := -Wall -Wextra -Werror -g -gdwarf-4
+CFLAGS      := -Wall -Wextra -Werror
 RM          := rm -rf
 
 # Directories

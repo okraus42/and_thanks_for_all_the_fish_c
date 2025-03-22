@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:11:13 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/17 18:38:59 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/22 14:45:13 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define MINILIBX	   0
 # define SDL		   1
-# define MAX_MAP_SIDE  256U
+# define MAX_MAP_SIDE  1024U
 # define MAX_KEY_SIZE  65536U
 # define MAX_FILE_SIZE 65536U
 
@@ -103,9 +103,6 @@ typedef struct s_img
 	int32_t		height;
 	uint8_t		frames;
 	uint8_t		current_frame;
-	//player
-	//collectibles
-	//enemies
 } t_img;
 
 // Structure to hold game data
