@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:11:13 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/24 17:42:02 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/24 18:39:11 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,85 +195,86 @@
 # define SQUARE_SIZE 50
 # define MOVE_SPEED	 1
 
-# define CLR_BLACK      0x000000U
-# define CLR_WHITE      0xFFFFFFU
+# define CLR_BLACK      0xFF000000U
+# define CLR_WHITE      0xFFFFFFFFU
 
-# define CLR_RED        0xFF0000U
-# define CLR_LIGHT_RED  0xFF6666U
-# define CLR_DARK_RED   0x990000U
+# define CLR_RED        0xFFFF0000U
+# define CLR_LIGHT_RED  0xFFFF6666U
+# define CLR_DARK_RED   0xFF990000U
 
-# define CLR_GREEN      0x00FF00U
-# define CLR_LIGHT_GREEN 0x66FF66U
-# define CLR_DARK_GREEN  0x009900U
+# define CLR_GREEN      0xFF00FF00U
+# define CLR_LIGHT_GREEN 0xFF66FF66U
+# define CLR_DARK_GREEN  0xFF009900U
 
-# define CLR_BLUE       0x0000FFU
-# define CLR_LIGHT_BLUE 0x6666FFU
-# define CLR_DARK_BLUE  0x000099U
+# define CLR_BLUE       0xFF0000FFU
+# define CLR_LIGHT_BLUE 0xFF6666FFU
+# define CLR_DARK_BLUE  0xFF000099U
 
-# define CLR_YELLOW      0xFFFF00U
-# define CLR_LIGHT_YELLOW 0xFFFF66U
-# define CLR_DARK_YELLOW  0x999900U
+# define CLR_YELLOW      0xFFFFFF00U
+# define CLR_LIGHT_YELLOW 0xFFFFFF66U
+# define CLR_DARK_YELLOW  0xFF999900U
 
-# define CLR_CYAN       0x00FFFFU
-# define CLR_LIGHT_CYAN 0x66FFFFU
-# define CLR_DARK_CYAN  0x009999U
+# define CLR_CYAN       0xFF00FFFFU
+# define CLR_LIGHT_CYAN 0xFF66FFFFU
+# define CLR_DARK_CYAN  0xFF009999U
 
-# define CLR_MAGENTA       0xFF00FFU
-# define CLR_LIGHT_MAGENTA 0xFF66FFU
-# define CLR_DARK_MAGENTA  0x990099U
+# define CLR_MAGENTA       0xFFFF00FFU
+# define CLR_LIGHT_MAGENTA 0xFFFF66FFU
+# define CLR_DARK_MAGENTA  0xFF990099U
 
-# define CLR_ORANGE      0xFFA500U
-# define CLR_LIGHT_ORANGE 0xFFB347U
-# define CLR_DARK_ORANGE  0xCC8400U
+# define CLR_ORANGE      0xFFFFA500U
+# define CLR_LIGHT_ORANGE 0xFFFFB347U
+# define CLR_DARK_ORANGE  0xFFCC8400U
 
-# define CLR_PURPLE      0x800080U
-# define CLR_LIGHT_PURPLE 0xDDA0DDU
-# define CLR_DARK_PURPLE  0x4B0082U
+# define CLR_PURPLE      0xFF800080U
+# define CLR_LIGHT_PURPLE 0xFFDDA0DDU
+# define CLR_DARK_PURPLE  0xFF4B0082U
 
-# define CLR_BROWN      0x8B4513U
-# define CLR_LIGHT_BROWN 0xCD853FU
-# define CLR_DARK_BROWN  0x5C2E0FU
+# define CLR_BROWN      0xFF8B4513U
+# define CLR_LIGHT_BROWN 0xFFCD853FU
+# define CLR_DARK_BROWN  0xFF5C2E0FU
 
-# define CLR_PINK       0xFFC0CBU
-# define CLR_LIGHT_PINK 0xFFB6C1U
-# define CLR_DARK_PINK  0xC71585U
+# define CLR_PINK       0xFFFFC0CBU
+# define CLR_LIGHT_PINK 0xFFFFB6C1U
+# define CLR_DARK_PINK  0xFFC71585U
 
-# define CLR_GRAY       0x808080U
-# define CLR_LIGHT_GRAY 0xD3D3D3U
-# define CLR_DARK_GRAY  0x505050U
+# define CLR_GRAY       0xFF808080U
+# define CLR_LIGHT_GRAY 0xFFD3D3D3U
+# define CLR_DARK_GRAY  0xFF505050U
 
-# define CLR_GRAY_1  0x222222U  // Very Dark Gray
-# define CLR_GRAY_2  0x444444U  // Dark Gray
-# define CLR_GRAY_3  0x666666U  // Medium-Dark Gray
-# define CLR_GRAY_4  0x888888U  // Mid GRay
-# define CLR_GRAY_5  0xAAAAAAU  // Medium-Light GRay
-# define CLR_GRAY_6  0xCCCCCCU  // Light GRay
-# define CLR_GRAY_7  0xEEEEEEU  // Very Light Gray
+# define CLR_GRAY_1  0xFF222222U  // Very Dark Gray
+# define CLR_GRAY_2  0xFF444444U  // Dark Gray
+# define CLR_GRAY_3  0xFF666666U  // Medium-Dark Gray
+# define CLR_GRAY_4  0xFF888888U  // Mid GRay
+# define CLR_GRAY_5  0xFFAAAAAAU  // Medium-Light GRay
+# define CLR_GRAY_6  0xFFCCCCCCU  // Light GRay
+# define CLR_GRAY_7  0xFFEEEEEEU  // Very Light Gray
 
-# define CLR_GOLD       0xFFD700U
-# define CLR_SILVER     0xC0C0C0U
-# define CLR_BRONZE     0xCD7F32U
+# define CLR_GOLD       0xFFFFD700U
+# define CLR_SILVER     0xFFC0C0C0U
+# define CLR_BRONZE     0xFFCD7F32U
 
-# define CLR_TEAL       0x008080U
-# define CLR_LIGHT_TEAL 0x66CCCCU
-# define CLR_DARK_TEAL  0x004C4CU
+# define CLR_TEAL       0xFF008080U
+# define CLR_LIGHT_TEAL 0xFF66CCCCU
+# define CLR_DARK_TEAL  0xFF004C4CU
 
-# define CLR_NAVY       0x000080U
-# define CLR_LIGHT_NAVY 0x3366CCU
-# define CLR_DARK_NAVY  0x00004CU
+# define CLR_NAVY       0xFF000080U
+# define CLR_LIGHT_NAVY 0xFF3366CCU
+# define CLR_DARK_NAVY  0xFF00004CU
 
-# define CLR_OLIVE      0x808000U
-# define CLR_LIGHT_OLIVE 0xB5B35FU
-# define CLR_DARK_OLIVE  0x5A5A00U
+# define CLR_OLIVE      0xFF808000U
+# define CLR_LIGHT_OLIVE 0xFFB5B35FU
+# define CLR_DARK_OLIVE  0xFF5A5A00U
 
-# define CLR_MAROON      0x800000U
-# define CLR_LIGHT_MAROON 0xB03060U
-# define CLR_DARK_MAROON  0x400000U
+# define CLR_MAROON      0xFF800000U
+# define CLR_LIGHT_MAROON 0xFFB03060U
+# define CLR_DARK_MAROON  0xFF400000U
 
-# define CLR_TURQUOISE      0x40E0D0U
-# define CLR_LIGHT_TURQUOISE 0xAFEEEEU
-# define CLR_DARK_TURQUOISE  0x008080U
+# define CLR_TURQUOISE      0xFF40E0D0U
+# define CLR_LIGHT_TURQUOISE 0xFFAFEEEEU
+# define CLR_DARK_TURQUOISE  0xFF008080U
 
+# define CLR_TRANSPARENT  0x00000000U
 
 enum e_tiles
 {
@@ -326,6 +327,35 @@ typedef struct s_img
 	uint8_t		current_frame;
 } t_img;
 
+
+//char
+typedef struct s_char
+{
+	uint8_t		c;
+	uint32_t	width;
+	uint32_t	height;
+	uint32_t	pos_x;
+	uint32_t	pos_y;
+	uint32_t	colour;
+	uint32_t	background;
+	//font
+	//effect
+} t_char;
+
+//textbox
+typedef struct s_text
+{
+	char		*s;
+	uint32_t	width;
+	uint32_t	height;
+	uint32_t	pos_x;
+	uint32_t	pos_y;
+	uint32_t	colour;
+	uint32_t	background;
+	//font
+	//effect
+} t_text;
+
 // Structure to hold game data
 typedef struct s_game
 {
@@ -342,6 +372,7 @@ typedef struct s_game
 	t_tile_64x64	font[128];
 	t_tile_64x64	tiles_64x64[256];
 	t_tile_32x64	tiles_32x64[256];
+	uint64_t		frame;
 } t_game;
 
 #endif

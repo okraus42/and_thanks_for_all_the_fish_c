@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:03:00 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/24 17:52:09 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/24 18:44:08 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,28 +84,55 @@ void draw_square(t_game* g)
 	}
 }
 
-void draw_char(t_game* g, uint8_t c, uint32_t pos_y, uint32_t pos_x)
+void draw_char(t_game* g, t_char c)
 {
-	int y, x;
+	uint32_t y;
+	uint32_t x;
 
-	for (y = 0; y < 64; y++)
+	for (y = 0U; y < 64U; y++)
 	{
-		for (x = 0; x < 64; x++)
+		for (x = 0U; x < 64U; x++)
 		{
 			// mlx_pixel_put(g->mlx, g->win, i, j, color);
-			if (c < 128 && g->font[c].data[y * 64 + x])
-				g->screen.data[(y + pos_y) * WIN_WIDTH + (x + pos_x)] = CLR_BLUE;
+			if (x + c.pos_x >= g->frame % WIN_WIDTH && x + c.pos_x < g->frame % WIN_WIDTH + 4)
+			{
+				if (c.c < 128U && g->font[c.c].data[y * 64U + x] && c.colour)
+					g->screen.data[(y + c.pos_y) * WIN_WIDTH + (x + c.pos_x)] = CLR_GOLD;
+				else if (c.c < 128U && c.c >= 32U && !g->font[c.c].data[y * 64U + x] && c.background)
+					g->screen.data[(y + c.pos_y) * WIN_WIDTH + (x + c.pos_x)] = CLR_SILVER;
+				else
+				{
+					//empty for now
+				}
+			}
+			else
+			{
+				if (c.c < 128U && g->font[c.c].data[y * 64U + x] && c.colour)
+					g->screen.data[(y + c.pos_y) * WIN_WIDTH + (x + c.pos_x)] = c.colour;
+				else if (c.c < 128U && c.c >= 32U && !g->font[c.c].data[y * 64U + x] && c.background)
+					g->screen.data[(y + c.pos_y) * WIN_WIDTH + (x + c.pos_x)] = c.background;
+				else
+				{
+					//empty for now
+				}
+			}
 		}
 	}
 }
 
-void draw_text(t_game* g, char *s, uint32_t pos_y, uint32_t pos_x)
+void draw_text(t_game* g, t_text text)
 {
-	while (*s)
+	t_char	c;
+	c.pos_x = text.pos_x;
+	c.pos_y = text.pos_y;
+	c.colour = text.colour;
+	c.background = text.background;
+	while (*(text.s))
 	{
-		draw_char(g, *s, pos_y, pos_x);
-		pos_x += 64;
-		s++;
+		c.c = *(text.s);
+		draw_char(g, c);
+		c.pos_x += 64;
+		(text.s)++;
 	}
 }
 
@@ -208,6 +235,12 @@ int key_release(int keycode, void* param)
 int update_game(void* param)
 {
 	t_game* g = (t_game*)param;
+	t_text	text;
+	text.pos_x = 10;
+	text.pos_y = 10;
+	text.colour = CLR_DARK_MAROON;
+	text.background = CLR_DARK_TEAL;
+	text.s = " And thanks for all the fish ";
 	bool	moved = false;
 	if (g->keys[KEY_LEFT] && g->x > 0)
 	{
@@ -230,15 +263,15 @@ int update_game(void* param)
 		moved = true;
 	}
 	// printf("hi\n");
-	if (moved)
-	{
-		clear_screen(g);
-		draw_square(g);
-		draw_text(g, "Hello world!", 10, 10);
-		copy_screen(g);
-		// mlx_put_image_to_window(g->mlx, g->win, g->image.img, 100, 100);
-		mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
-	}
+	(void)moved;
+	clear_screen(g);
+	draw_square(g);
+	draw_text(g, text);
+	copy_screen(g);
+	// mlx_put_image_to_window(g->mlx, g->win, g->image.img, 100, 100);
+	mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
+
+	g->frame++;
 	return (0);
 }
 
