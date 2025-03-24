@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:11:13 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/23 16:03:18 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/24 17:42:02 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,9 @@ typedef struct s_img
 	int32_t		width;
 	int32_t		height;
 	uint8_t		frames;
+	int32_t		bpp;
+	int32_t		size_line;
+	int32_t		endian;
 	uint8_t		current_frame;
 } t_img;
 
@@ -336,6 +339,7 @@ typedef struct s_game
 	t_map	map;
 	t_img	image;
 	t_img	bg[16];
+	t_tile_64x64	font[128];
 	t_tile_64x64	tiles_64x64[256];
 	t_tile_32x64	tiles_32x64[256];
 } t_game;

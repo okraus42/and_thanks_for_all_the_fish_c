@@ -6,7 +6,7 @@
 /*   By: okraus <okraus@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:03:00 by okraus            #+#    #+#             */
-/*   Updated: 2025/03/23 16:02:09 by okraus           ###   ########.fr       */
+/*   Updated: 2025/03/24 17:52:09 by okraus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,31 @@ void draw_square(t_game* g)
 			// mlx_pixel_put(g->mlx, g->win, i, j, color);
 			g->screen.data[y * WIN_WIDTH + x] = CLR_BLUE;
 		}
+	}
+}
+
+void draw_char(t_game* g, uint8_t c, uint32_t pos_y, uint32_t pos_x)
+{
+	int y, x;
+
+	for (y = 0; y < 64; y++)
+	{
+		for (x = 0; x < 64; x++)
+		{
+			// mlx_pixel_put(g->mlx, g->win, i, j, color);
+			if (c < 128 && g->font[c].data[y * 64 + x])
+				g->screen.data[(y + pos_y) * WIN_WIDTH + (x + pos_x)] = CLR_BLUE;
+		}
+	}
+}
+
+void draw_text(t_game* g, char *s, uint32_t pos_y, uint32_t pos_x)
+{
+	while (*s)
+	{
+		draw_char(g, *s, pos_y, pos_x);
+		pos_x += 64;
+		s++;
 	}
 }
 
@@ -177,7 +202,7 @@ int key_release(int keycode, void* param)
 	return (0);
 }
 
-# define IMG_PATH "assets/img/test2.xpm"
+# define ASCII_PATH "assets/img/ascii.xpm"
 
 // Update function for continuous movement
 int update_game(void* param)
@@ -209,12 +234,51 @@ int update_game(void* param)
 	{
 		clear_screen(g);
 		draw_square(g);
+		draw_text(g, "Hello world!", 10, 10);
 		copy_screen(g);
 		// mlx_put_image_to_window(g->mlx, g->win, g->image.img, 100, 100);
 		mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
 	}
 	return (0);
 }
+
+//copy image
+
+
+//read ascii
+int	read_ascii(t_game *g)
+{
+	uint32_t	y;
+	uint32_t	x;
+	uint32_t	c;
+	uint32_t	*data;
+
+	data = (uint32_t *)mlx_get_data_addr(g->image.img, &g->image.bpp, &g->image.size_line, &g->image.endian);
+	if (g->image.width != 640 || g->image.height != 640)
+	{
+		put_error("Failed to parse ascii.\n");
+		return (1);
+	}
+	put_str("Reading ascii.\n");
+	y = 0;
+	while (y < 640U)
+	{
+		x = 0;
+		while (x < 640U)
+		{
+			c = 10U * (y / 64U) + (x / 64U) + 32U;
+			
+			if (c > ' ' && c <= '~' && data[y * 640U + x] != 0U)
+				g->font[c].data[y % 64 * 64 + x % 64] = 0xFFFFFFFFU;
+			x++;
+		}
+		y++;
+	}
+	put_str("Read ascii.\n");
+	return (0);
+}
+
+
 
 //crop iamge function
 
@@ -240,13 +304,16 @@ int game(t_game* g)
 	g->y = WIN_HEIGHT / 2 - SQUARE_SIZE / 2;
 
 	g->image.img =
-		mlx_xpm_file_to_image(g->mlx, IMG_PATH, &g->image.width, &g->image.height);
+		mlx_xpm_file_to_image(g->mlx, ASCII_PATH, &g->image.width, &g->image.height);
 	if (!g->image.img)
 	{
 		put_error("Failed to load sprite sheet\n");
 		return (1);
 	}
-
+	if (read_ascii(g))
+	{
+		return (1);
+	}
 	g->img = mlx_new_image(g->mlx, WIN_WIDTH, WIN_HEIGHT);
 	draw_square(g);
 	mlx_hook(g->win, 2, 1L << 0, key_press, g);	  // Handle key press
